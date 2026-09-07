@@ -179,10 +179,52 @@ button {
   gap: 16px;
 }
 
-@media (max-width: 720px) {
+.mobile-nav-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-nav-toggle {
+    display: block !important;
+  }
+}
+
+@media (max-width: 640px) {
   .grid-2,
   .grid-3 {
     grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 20px 16px 60px;
+  }
+
+  h1,
+  .display {
+    font-size: 1.6rem !important;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .panel {
+    padding: 16px !important;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    font-size: 16px; /* Prevents auto-zoom on iOS safari */
   }
 }
 
