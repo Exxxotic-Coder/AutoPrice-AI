@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const mlServiceUrl = (process.env.ML_SERVICE_URL || process.env.ml_service_url || "http://localhost:8000").replace(/\/$/, "");
+
 const mlClient = axios.create({
-  baseURL: process.env.ML_SERVICE_URL || "http://localhost:8000",
-  timeout: 10000,
+  baseURL: mlServiceUrl,
+  timeout: 45000,
 });
 
 /** Maps our camelCase request body to the PascalCase aliases the FastAPI model expects. */

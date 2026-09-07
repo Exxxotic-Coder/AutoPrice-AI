@@ -15,8 +15,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5173").split(",");
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+const rawOrigins = process.env.ALLOWED_ORIGINS || process.env.allowed_origins || "http://localhost:5173";
+const allowedOrigins = rawOrigins.split(",").map((o) => o.trim().replace(/\/$/, ""));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes("*") || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 

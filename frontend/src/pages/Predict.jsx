@@ -13,7 +13,7 @@ const EMPTY = {
 };
 
 export default function Predict() {
-  const { metadata } = useMetadata();
+  const { metadata, error: metadataError, refetch } = useMetadata();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [values, setValues] = useState(EMPTY);
@@ -48,7 +48,7 @@ export default function Predict() {
       </h1>
 
       <form onSubmit={handleSubmit} className="panel" style={{ padding: 24, marginBottom: 28 }}>
-        <CarSpecForm metadata={metadata} values={values} onChange={setValues} />
+        <CarSpecForm metadata={metadata} error={metadataError} refetch={refetch} values={values} onChange={setValues} />
 
         {error && <div className="error-banner" style={{ marginTop: 16 }}>{error}</div>}
 

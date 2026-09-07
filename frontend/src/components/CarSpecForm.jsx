@@ -9,9 +9,23 @@ const NUMERIC_FIELDS = [
   { key: "length", label: "Length (in)", metaKey: "Length", step: 1 },
 ];
 
-export default function CarSpecForm({ metadata, values, onChange }) {
+export default function CarSpecForm({ metadata, error, refetch, values, onChange }) {
+  if (error && !metadata) {
+    return (
+      <div style={{ padding: 16, background: "rgba(239, 68, 68, 0.1)", borderRadius: 8, border: "1px solid var(--danger)", marginBottom: 16 }}>
+        <p style={{ color: "#f87171", fontWeight: 600, margin: 0 }}>Failed to load vehicle data</p>
+        <p style={{ fontSize: "0.85rem", color: "var(--text-dim)", margin: "4px 0 12px" }}>{error}</p>
+        {refetch && (
+          <button type="button" className="btn btn-secondary" onClick={refetch} style={{ fontSize: "0.85rem", padding: "6px 12px" }}>
+            Retry loading
+          </button>
+        )}
+      </div>
+    );
+  }
+
   if (!metadata) {
-    return <p style={{ color: "var(--text-dim)" }}>Loading vehicle data...</p>;
+    return <p style={{ color: "var(--text-dim)" }}>Loading vehicle data... (Servers may take 30-50s to wake up on free tier)</p>;
   }
 
   const modelsForMake = values.make ? metadata.modelsByMake[values.make] || [] : [];

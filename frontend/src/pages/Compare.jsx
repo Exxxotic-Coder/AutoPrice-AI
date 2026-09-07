@@ -13,7 +13,7 @@ const EMPTY = {
 };
 
 export default function Compare() {
-  const { metadata } = useMetadata();
+  const { metadata, error: metadataError, refetch } = useMetadata();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [carA, setCarA] = useState(EMPTY);
@@ -54,11 +54,11 @@ export default function Compare() {
         <div className="grid-2">
           <div className="panel" style={{ padding: 20 }}>
             <h3 style={{ marginBottom: 14, color: "var(--accent)" }}>Car A</h3>
-            <CarSpecForm metadata={metadata} values={carA} onChange={setCarA} />
+            <CarSpecForm metadata={metadata} error={metadataError} refetch={refetch} values={carA} onChange={setCarA} />
           </div>
           <div className="panel" style={{ padding: 20 }}>
             <h3 style={{ marginBottom: 14, color: "var(--accent-2)" }}>Car B</h3>
-            <CarSpecForm metadata={metadata} values={carB} onChange={setCarB} />
+            <CarSpecForm metadata={metadata} error={metadataError} refetch={refetch} values={carB} onChange={setCarB} />
           </div>
         </div>
 
