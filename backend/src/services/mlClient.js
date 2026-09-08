@@ -4,7 +4,7 @@ const mlServiceUrl = (process.env.ML_SERVICE_URL || process.env.ml_service_url |
 
 const mlClient = axios.create({
   baseURL: mlServiceUrl,
-  timeout: 45000,
+  timeout: 120000,
 });
 
 /** Maps our camelCase request body to the PascalCase aliases the FastAPI model expects. */
